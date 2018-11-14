@@ -1,4 +1,5 @@
-import items
+import items, world
+import random #Note the new import!
 
 class Player(object):
     """docstring for Player."""
@@ -51,3 +52,9 @@ class Player(object):
         action_method = getattr(self, action.method.__name__)
         if action_method:
             action_method(**kwargs)
+
+    def flee(self, tile):
+        """Move the player randomly to an adjacent tile"""
+        available_moves = tile.adjacent_move()
+        r = random.randint(0, len(available_moves) -1)
+        self.do_action(available_moves[r])

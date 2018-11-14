@@ -63,3 +63,9 @@ class EmemeyRoom(MapTile):
     if self.ememy.is_alive():
         the_player.hp = the_player.hp - self.enemy.damage
         print('Ememy does {} damage. You have {} HP remaning.'.formant.(self.ememy.damage, the_player.hp))
+
+    def available_actions(self):
+        if self.enemy.is_alive():
+            return [action.Flee(tile = self), actions.Attack(enemy = self.enemy)]
+        else:
+            return self.adjacent_moves()
