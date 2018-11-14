@@ -1,15 +1,15 @@
 import enemies, items, actions, world
 
 class MapTile:
-    def __init__(x,y):
+    def __init__(self, x, y):
         self.x = x
         self.y = y
 
     def intro_text(self):
         raise NotImplementedError()
 
-    def modify_player(self, player):
-        raise NotADirectoryError()
+    def modify_player(self, the_player):
+        raise NotImplementedError()
 
     def adjacent_moves(self):
         """Return all move actions for adjacent tiles"""
@@ -20,7 +20,7 @@ class MapTile:
         if world.tile_exists(self.x, self.y - 1):
             moves.append(actions.MoveWest())
 
-        if world.tile_exists(self.x, self.y - 1)
+        if world.tile_exists(self.x, self.y - 1):
             moves.append(actions.MoveNorth())
 
         if world.tile_exists(self.x + 1, self.y):
@@ -39,7 +39,7 @@ class StartingRoom(MapTile):
         You find yourself if a cave with a flickering torch on the wall.
         You can make out four paths, each equally as dark and foreboding.
         """
-    def modify_player(self, player):
+    def modify_player(self, the_player):
         #Room has no action on player
         pass
 
@@ -48,27 +48,55 @@ class LootRoom(MapTile):
         self.item = item
         super().__init__(x,y)
 
-    def add_loot(self, player):
+    def add_loot(self, the_player):
         player.inventory(self.item)
 
-    def modify_player(self, player):
-        self.add_loot(player)
+    def modify_player(self, the_player):
+        self.add_loot(the_player)
 
-class EmemeyRoom(MapTile):
+class EnemyRoom(MapTile):
     def __init__(self, x, y, enemy):
-        self.emeny = enemy
-        super().__init__(x,y)
+        self.enemy = enemy
+        super().__init__(x, y)
 
-    del modify_player(self, player):
-    if self.ememy.is_alive():
-        the_player.hp = the_player.hp - self.enemy.damage
-        print('Ememy does {} damage. You have {} HP remaning.'.formant.(self.ememy.damage, the_player.hp))
+    def modify_player(self, the_player):
+        if self.enemy.is_alive():
+            the_player.hp = the_player.hp - self.enemy.damage
+            print('Enemy does {} damage. You have {} HP remaning.'.format(self.enemy.damage, the_player.hp))
 
     def available_actions(self):
         if self.enemy.is_alive():
             return [action.Flee(tile = self), actions.Attack(enemy = self.enemy)]
         else:
             return self.adjacent_moves()
+
+class GiantSpiderRoom(EnemyRoom):
+    def __init__(self, x, y):
+        super().__init__(x, y, enemies.GiantSpider())
+
+    def intro_text(self):
+        if self.enemy.is_alive():
+            return """
+            A giant spider jumps down from its web in front of you!
+            """
+        else:
+            return """
+            The corpse of a dead spider rots on the ground.
+            """
+
+class OgreRoom(EnemyRoom):
+    def __init__(self, x, y):
+        super().__init__(x, y, enemies.Ogre())
+
+    def intro_text(self):
+        if self.enemy.is_alive():
+            return """
+            An ogre is blocking your path!
+            """
+        else:
+            return """
+            A dead ogre reminds you of your triumph.
+            """
 
 class LeaveCaveRoom(MapTile):
     def intro_text(self):

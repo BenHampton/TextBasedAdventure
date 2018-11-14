@@ -1,24 +1,24 @@
-class Emeny:
-    def __init__(self, name, hp, damage)
-    self.name = name
-    self.hp = hp
-    self.damage = damage
+class Enemy:
+    def __init__(self, name, hp, damage):
+        self.name = name
+        self.hp = hp
+        self.damage = damage
 
     def is_alive(self):
         return self.hp > 0
 
-class GaintSpider(Enemy):
+class GiantSpider(Enemy):
     def __init__(self):
-        super()__init__(name = "Giant Spider", hp = 5, damage = 2)
+        super().__init__(name = "Giant Spider", hp = 5, damage = 2)
 
-class Skeleton(Emeny):
+class Skeleton(Enemy):
     def __init__(self):
-        super()__init__(name = "Skeleton", hp = 10, damage = 6)
+        super().__init__(name = "Skeleton", hp = 10, damage = 6)
 
-class Oger(Emeny):
+class Oger(Enemy):
     def __init__(self):
-        super()__init__(name = "Oger", hp = 20, damage = 15)
+        super().__init__(name = "Oger", hp = 20, damage = 15)
 
-class Orc(Emeny):
+class Orc(Enemy):
     def __init__(self):
-        super()__init__(name = "Orc", hp = 35, damage = 20)
+        super().__init__(name = "Orc", hp = 35, damage = 20)

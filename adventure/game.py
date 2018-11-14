@@ -1,5 +1,5 @@
 import world
-from play import Player
+from player import Player
 
 def play():
     world.load_tiles()
