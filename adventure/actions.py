@@ -1,4 +1,4 @@
-import player
+from player import Player
 
 class Action():
     def __init__(self, method, name, hotkey, **kwargs):
@@ -8,7 +8,7 @@ class Action():
         self.kwargs = kwargs
 
     def __str__(self):
-        return "{}: {}".formant(self.hotkey, self.name)
+        return "{}: {}".format(self.hotkey, self.name)
 
 class MoveNorth(Action):
     def __init__(self):
@@ -29,7 +29,7 @@ class MoveWest(Action):
 class ViewInventory(Action):
     """Prints the player's inventory"""
     def __init__(self):
-        super().__init__(Player.print_inventory, name = "View Inventory", hotkey = 'i')
+        super().__init__(method = Player.print_inventory, name = "View Inventory", hotkey = 'i')
 
 class Attack(Action):
     def __init__(self):

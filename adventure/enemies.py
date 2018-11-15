@@ -15,9 +15,9 @@ class Skeleton(Enemy):
     def __init__(self):
         super().__init__(name = "Skeleton", hp = 10, damage = 6)
 
-class Oger(Enemy):
+class Ogre(Enemy):
     def __init__(self):
-        super().__init__(name = "Oger", hp = 20, damage = 15)
+        super().__init__(name = "Ogre", hp = 20, damage = 15)
 
 class Orc(Enemy):
     def __init__(self):

@@ -26,6 +26,8 @@ class MapTile:
         if world.tile_exists(self.x + 1, self.y):
             moves.append(actions.MoveSouth())
 
+        return moves
+
     def available_actions(self):
         """Return all of the available actions in this room."""
         moves = self.adjacent_moves()
@@ -43,8 +45,18 @@ class StartingRoom(MapTile):
         #Room has no action on player
         pass
 
+class EmptyCavePath(MapTile):
+    def intro_text(self):
+        return """
+        Another unremarkable part of the cave. You must forge onwards.
+        """
+
+    def modify_player(self, the_player):
+        #Room has no action on player
+        pass
+
 class LootRoom(MapTile):
-    def __init__(self, x, y):
+    def __init__(self, x, y, item):
         self.item = item
         super().__init__(x,y)
 
@@ -97,6 +109,35 @@ class OgreRoom(EnemyRoom):
             return """
             A dead ogre reminds you of your triumph.
             """
+
+class SnakePitRoom(MapTile):
+    def intro_text(self):
+        return """
+        You have fallen into a pit of deadly snakes!
+        You have died!
+        """
+
+    def modify_player(self, player):
+        player.hp = 0
+
+class Find5GoldRoom(LootRoom):
+    def __init__(self, x, y):
+        super().__init__(x, y, items.Gold(5))
+
+    def intro_text(self):
+        return """
+        Someone dropped a 5 gold piece. You pick it up.
+        """
+
+class FindDaggerRoom(LootRoom):
+    def __init__(self, x, y):
+        super().__init__(x, y, items.Dagger())
+
+    def intro_text(self):
+        return """
+        You notice something shiny in the corner.
+        It's a dagger! You pick it up.
+        """
 
 class LeaveCaveRoom(MapTile):
     def intro_text(self):

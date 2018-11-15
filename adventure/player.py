@@ -19,10 +19,10 @@ class Player(object):
     def move(self, dx, dy):
         self.location_x += dx
         self.location_y += dy
-        print(world.title_exists(self.location_x, self.location_y).intro_text())
+        print(world.tile_exists(self.location_x, self.location_y).intro_text())
 
     def move_north(self):
-        self.move(dx = 0, dy = -1)
+        self.move(dx = 0, dy =-1)
 
     def move_east(self):
         self.move(dx = 1, dy = 0)
@@ -31,7 +31,7 @@ class Player(object):
         self.move(dx = 0, dy = 1)
 
     def move_west(self):
-        self.move(dx = -1, dy = 0)
+        self.move(dx =-1, dy = 0)
 
     def attack(self, ememy):
         best_weapon = None
@@ -48,7 +48,7 @@ class Player(object):
         else:
             print("{} HP is {}.".format(enemy.name, enemy.hp))
 
-    def do_action(self, actions, **kwargs):
+    def do_action(self, action, **kwargs):
         action_method = getattr(self, action.method.__name__)
         if action_method:
             action_method(**kwargs)

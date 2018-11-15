@@ -1,4 +1,3 @@
-
 			LeaveCaveRoom	
 	Find5GoldRoom	EmptyCavePath	GiantSpiderRoom	EmptyCavePath
 		EmptyCavePath		
